@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script>
+        // 为了避免产生精度差异，我们要把需要计算的数字乘以 10 的 n 次幂
+        // ，换算成计算机能够精确识别的整数，然后再除以 10 的 n 次幂，
+        // 大部分编程语言都是这样处理精度差异的，我们就借用过来处理一下 JS 中的浮点数精度误差
+      var   formatNum = function(f, digit) { 
+    var m = Math.pow(10, digit); 
+    return parseInt(f * m, 10) / m; 
+} 
+       
+        function ccl() {
+        var num1=parseFloat(document.getElementById("num1").value);
+        var num2=parseFloat(document.getElementById("num2").value);
+        var select=document.getElementById("select").value;
+        var result;
+        switch(select){
+            case '+':
+            result=parseFloat((num1 + num2).toFixed(2));//四舍五入解决精度问题
+                break;
+            case '-':
+            result=parseFloat((num1 - num2).toFixed(2));//四舍五入解决精度问题
+                break;
+            case '*':
+            result=formatNum(num1*num2,3);//调用函数，结果保留三位小数
+                break;
+            case '/':
+            result=formatNum(num1/num2,3);//调用函数，结果保留三位小数
+                break;
+
+        }
+        
+        document.getElementById("result1").value=result;
+    } 
+
+    </script>
+</head>
+<body>
+    <input type="text" id="num1" placeholder="请输入数字">
+    <select id="select">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input type="text" id="num2" placeholder="请输入数字">
+    <input type="button" value="=" id="answer" onclick="ccl()"> 
+    <input type="text" id="result1" placeholder="点击获得结果" onclick='ccl()'>
+</body>
+</html>
